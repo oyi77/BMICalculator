@@ -3,8 +3,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,42 +12,32 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class RegisterApp extends Application {
+public class HistoryApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Register");
+        primaryStage.setTitle("History");
 
-        Label emailLabel = new Label("Email:");
-        TextField emailField = new TextField();
+        TextArea historyArea = new TextArea();
+        historyArea.setEditable(false);
 
-        Label passwordLabel = new Label("Password:");
-        PasswordField passwordField = new PasswordField();
-
-        Button registerButton = new Button("Register");
-        registerButton.setOnAction(event -> {
-            String email = emailField.getText();
-            String password = passwordField.getText();
-
+        Button refreshButton = new Button("Refresh");
+        refreshButton.setOnAction(event -> {
             try (Socket socket = new Socket("localhost", 1234);
                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-                out.println(email + "," + password);
+                out.println("getHistory");
                 String response = in.readLine();
 
-                if (response.equals("success")) {
-                    // TODO: Navigate to the next scene
-                } else {
-                    // TODO: Show error message
-                }
+                // TODO: Update the history area with the received history
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
-        VBox vbox = new VBox(emailLabel, emailField, passwordLabel, passwordField, registerButton);
+        VBox vbox = new VBox(historyArea, refreshButton);
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(10);
 

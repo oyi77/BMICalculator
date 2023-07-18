@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 public class ChatApp extends Application {
 
     @Override
@@ -23,7 +28,19 @@ public class ChatApp extends Application {
         Button sendButton = new Button("Send");
         sendButton.setOnAction(event -> {
             String message = messageField.getText();
-            // TODO: Send chat message to server
+
+            try (Socket socket = new Socket("localhost", 1234);
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+                out.println(message);
+                String response = in.readLine();
+
+                // TODO: Update the chat area with the received message
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         VBox vbox = new VBox(chatArea, messageLabel, messageField, sendButton);
