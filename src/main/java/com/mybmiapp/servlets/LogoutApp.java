@@ -2,42 +2,21 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-
-public class HistoryApp extends Application {
+public class LogoutApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("History");
+        primaryStage.setTitle("Logout");
 
-        TextArea historyArea = new TextArea();
-        historyArea.setEditable(false);
-
-        Button refreshButton = new Button("Refresh");
-        refreshButton.setOnAction(event -> {
-            try (Socket socket = new Socket("localhost", 1234);
-                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
-                out.println("getHistory");
-                String response = in.readLine();
-
-                // TODO: Update the history area with the received history
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(event -> {
+            // TODO: Logout the current user and navigate to the login scene
         });
 
-        VBox vbox = new VBox(historyArea, refreshButton);
+        VBox vbox = new VBox(logoutButton);
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(10);
 
