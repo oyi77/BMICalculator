@@ -14,29 +14,29 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class BlockApp extends Application {
+public class UnblockApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Block User");
+        primaryStage.setTitle("Unblock User");
 
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField();
 
-        Button blockButton = new Button("Block");
-        blockButton.setOnAction(event -> {
+        Button unblockButton = new Button("Unblock");
+        unblockButton.setOnAction(event -> {
             String email = emailField.getText();
 
             try (Socket socket = new Socket("localhost", 1234);
                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-                out.println("block," + email);
+                out.println("unblock," + email);
                 String response = in.readLine();
 
                 // Show a message based on the response
                 Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Block User");
+                alert.setTitle("Unblock User");
                 alert.setHeaderText(null);
                 alert.setContentText(response);
                 alert.showAndWait();
@@ -46,7 +46,7 @@ public class BlockApp extends Application {
             }
         });
 
-        VBox vbox = new VBox(emailLabel, emailField, blockButton);
+        VBox vbox = new VBox(emailLabel, emailField, unblockButton);
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(10);
 

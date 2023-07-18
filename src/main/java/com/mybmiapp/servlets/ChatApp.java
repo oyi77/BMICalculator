@@ -36,7 +36,8 @@ public class ChatApp extends Application {
                 out.println(message);
                 String response = in.readLine();
 
-                // TODO: Update the chat area with the received message
+                // Update the chat area with the received message
+                chatArea.appendText(response + "\n");
 
             } catch (Exception e) {
                 e.printStackTrace();

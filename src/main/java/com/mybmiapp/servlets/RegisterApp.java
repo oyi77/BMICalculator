@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -38,9 +40,17 @@ public class RegisterApp extends Application {
                 String response = in.readLine();
 
                 if (response.equals("success")) {
-                    // TODO: Navigate to the next scene
+                    // Navigate to the next scene
+                    LoginApp loginApp = new LoginApp();
+                    loginApp.start(new Stage());
+                    primaryStage.close();
                 } else {
-                    // TODO: Show error message
+                    // Show error message
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Registration failed. Please try again.");
+                    alert.showAndWait();
                 }
 
             } catch (Exception e) {

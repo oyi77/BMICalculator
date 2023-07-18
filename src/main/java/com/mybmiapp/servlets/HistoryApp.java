@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,7 +29,8 @@ public class HistoryApp extends Application {
                 out.println("getHistory");
                 String response = in.readLine();
 
-                // TODO: Update the history area with the received history
+                // Update the history area with the received history
+                historyArea.setText(response);
 
             } catch (Exception e) {
                 e.printStackTrace();

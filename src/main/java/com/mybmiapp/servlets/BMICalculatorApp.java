@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,7 +38,12 @@ public class BMICalculatorApp extends Application {
                 out.println(weight + "," + height);
                 String response = in.readLine();
 
-                // TODO: Show the calculated BMI
+                // Show the calculated BMI
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("BMI Result");
+                alert.setHeaderText(null);
+                alert.setContentText("Your BMI is " + response);
+                alert.showAndWait();
 
             } catch (Exception e) {
                 e.printStackTrace();

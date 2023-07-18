@@ -13,7 +13,10 @@ public class LogoutApp extends Application {
 
         Button logoutButton = new Button("Logout");
         logoutButton.setOnAction(event -> {
-            // TODO: Logout the current user and navigate to the login scene
+            // Logout the current user and navigate to the login scene
+            LoginApp loginApp = new LoginApp();
+            loginApp.start(new Stage());
+            primaryStage.close();
         });
 
         VBox vbox = new VBox(logoutButton);
