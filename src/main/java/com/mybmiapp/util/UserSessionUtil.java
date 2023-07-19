@@ -2,16 +2,36 @@ package com.mybmiapp.util;
 
 import com.mybmiapp.models.User;
 
-import javax.servlet.http.HttpSession;
-
 public class UserSessionUtil {
-    private static final String USER_SESSION_KEY = "currentUser";
 
-    public static void setCurrentUser(HttpSession session, User user) {
-        session.setAttribute(USER_SESSION_KEY, user);
+    private static UserSessionUtil instance;
+
+    private User user;
+
+    private UserSessionUtil(User user) {
+        this.user = user;
     }
 
-    public static User getCurrentUser(HttpSession session) {
-        return (User) session.getAttribute(USER_SESSION_KEY);
+    public static UserSessionUtil getInstance(User user) {
+        if(instance == null) {
+            instance = new UserSessionUtil(user);
+        }
+        return instance;
+    }
+
+    public User getCurrentUser() {
+        return user;
+    }
+
+    public void cleanUserSession() {
+        user = null;
+        instance = null;
+    }
+
+    @Override
+    public String toString() {
+        return "UserSessionUtil{" +
+                "user=" + user +
+                '}';
     }
 }
